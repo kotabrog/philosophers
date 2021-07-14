@@ -2,6 +2,7 @@ SRCDIR	= ./srcs/
 SRCNAME	=	main.c\
 			arg_parse.c\
 			status.c\
+			share.c\
 			ft_malloc.c\
 			mini_libft1.c\
 			debug.c
@@ -10,7 +11,7 @@ SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)
 
 NAME	= philo
-LDFLAGS = -lpthread
+LDFLAGS = -pthread
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f

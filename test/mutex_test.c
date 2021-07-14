@@ -20,6 +20,8 @@ int	main(int argc, char *argv[])
 	int			ret1;
 	int			ret2;
 
+	if (pthread_mutex_destroy(&m));
+		printf("pthread_mutex_destroy error\n");
 	pthread_mutex_init(&m, NULL);
 	ret1 = pthread_create(&thread1, NULL, (void *)f1, NULL);
 	ret2 = pthread_create(&thread2, NULL, (void *)f2, NULL);
@@ -51,6 +53,8 @@ int	main(int argc, char *argv[])
 	printf("%d\n", counter);
 
 	pthread_mutex_destroy(&m);
+	if (pthread_mutex_destroy(&m));
+		printf("pthread_mutex_destroy error\n");
 }
 
 void	f1(void)

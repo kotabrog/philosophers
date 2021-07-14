@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:03:52 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 20:36:40 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define SLEEP 2
 
 # define FREE_STATUS 1
+# define FREE_SHARE 2
 
 typedef struct s_fork {
 	int				use_flag;
@@ -72,7 +73,11 @@ typedef struct s_status {
 int		arg_parse(t_status *status, int argc, char **argv);
 
 int		status_init(t_status **status);
+int		status_set(t_status *status);
 void	status_free(t_status *status, int flag);
+
+int		share_init(t_share *share);
+void	share_free(t_share *share);
 
 int		ft_malloc(void *pointer, size_t type_size, size_t n);
 int		ft_free(void *pointer);

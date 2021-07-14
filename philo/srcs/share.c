@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   share.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 20:13:02 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:34:41 by ksuzuki          ###   ########.fr       */
+/*   Created: 2021/07/14 20:15:01 by ksuzuki           #+#    #+#             */
+/*   Updated: 2021/07/14 20:27:53 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	status_free(t_status *status, int flag)
+void	share_free(t_share *share)
 {
-	if (flag == SUCCESS || flag >= FREE_SHARE)
-		share_free(&(status->share));
-	free(status);
+	pthread_mutex_destroy(&(share->stop_mutex));
+	pthread_mutex_destroy(&(share->eat_count_mutex));
+	pthread_mutex_destroy(&(share->print_mutex));
 }
 
-int	status_set(t_status *status)
+int	share_init(t_share *share)
 {
-	if (share_init(&(status->share)))
-		return (FREE_SHARE);
-	return (SUCCESS);
-}
-
-int	status_init(t_status **status)
-{
-	if (ft_malloc(status, sizeof(t_status), 1))
-		return (ERROR);
-	(*status)->philo = NULL;
-	(*status)->fork = NULL;
+	pthread_mutex_init(&(share->stop_mutex), NULL);
+	pthread_mutex_init(&(share->eat_count_mutex), NULL);
+	pthread_mutex_init(&(share->print_mutex), NULL);
+	share->stop_flag = FALSE;
+	share->stop_eat_count = 0;
 	return (SUCCESS);
 }

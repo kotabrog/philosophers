@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:29:48 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:06:50 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 20:35:38 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	arg_error(void)
 {
 	ft_putendl_fd("The argument given is incorrect.", 2);
-	return (ERROR);
+	return (FREE_STATUS);
 }
 
 static int	set_int(char **str, int *num)
