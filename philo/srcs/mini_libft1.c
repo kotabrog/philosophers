@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mini_libft.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:04:53 by ksuzuki          ###   ########.fr       */
+/*   Created: 2021/07/14 19:33:48 by ksuzuki           #+#    #+#             */
+/*   Updated: 2021/07/14 19:34:50 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+size_t	ft_strlen(const char *c)
 {
-	t_status	*status;
-	int			flag;
+	size_t	i;
 
-	flag = SUCCESS;
-	if (status_init(&status))
-		return (EXIT_FAILURE);
-	if (arg_parse(status, argc, argv))
-		flag = FREE_STATUS;
-	if (!flag)
-		debug_config(status);
-	status_free(status, flag);
-	return (!!flag);
+	i = 0;
+	while (c[i])
+		i++;
+	return (i);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	n;
+
+	n = ft_strlen(s);
+	write(fd, s, n);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
+}
+
+int	ft_isdigit(int c)
+{
+	return ('0' <= c && c <= '9');
 }

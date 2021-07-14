@@ -74,3 +74,4 @@
   - [x] gettimeofdayで取得した構造体のtv_usecがこれになる
   - 実装
 - usleepの実行時間を短めに設定する（ワカモレ対策）
+- debug関数を削除する

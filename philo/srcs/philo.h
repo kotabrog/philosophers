@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/13 20:14:37 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 20:03:52 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -26,6 +28,8 @@
 # define EAT 0
 # define THINK 1
 # define SLEEP 2
+
+# define FREE_STATUS 1
 
 typedef struct s_fork {
 	int				use_flag;
@@ -65,7 +69,19 @@ typedef struct s_status {
 	t_fork		*fork;
 }			t_status;
 
+int		arg_parse(t_status *status, int argc, char **argv);
+
+int		status_init(t_status **status);
+void	status_free(t_status *status, int flag);
+
 int		ft_malloc(void *pointer, size_t type_size, size_t n);
 int		ft_free(void *pointer);
+
+size_t	ft_strlen(const char *c);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putendl_fd(char *s, int fd);
+int		ft_isdigit(int c);
+
+void	debug_config(t_status *status);
 
 #endif

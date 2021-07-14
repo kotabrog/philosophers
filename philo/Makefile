@@ -1,5 +1,10 @@
 SRCDIR	= ./srcs/
-SRCNAME	=	main.c
+SRCNAME	=	main.c\
+			arg_parse.c\
+			status.c\
+			ft_malloc.c\
+			mini_libft1.c\
+			debug.c
 
 SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)

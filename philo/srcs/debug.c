@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:04:53 by ksuzuki          ###   ########.fr       */
+/*   Created: 2021/07/14 19:47:33 by ksuzuki           #+#    #+#             */
+/*   Updated: 2021/07/14 19:51:35 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	debug_config(t_status *status)
 {
-	t_status	*status;
-	int			flag;
-
-	flag = SUCCESS;
-	if (status_init(&status))
-		return (EXIT_FAILURE);
-	if (arg_parse(status, argc, argv))
-		flag = FREE_STATUS;
-	if (!flag)
-		debug_config(status);
-	status_free(status, flag);
-	return (!!flag);
+	printf("--cfg--\n");
+	printf("num_philo: %d\n", status->cfg.num_philo);
+	printf("time_die: %d\n", status->cfg.time_die);
+	printf("time_eat: %d\n", status->cfg.time_eat);
+	printf("time_sleep: %d\n", status->cfg.time_sleep);
+	printf("stop_eat_times: %d\n", status->cfg.stop_eat_times);
 }
