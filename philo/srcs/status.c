@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 20:13:02 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:34:41 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 22:52:07 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	status_free(t_status *status, int flag)
 {
 	if (flag == SUCCESS || flag >= FREE_SHARE)
 		share_free(&(status->share));
+	if (flag == SUCCESS || flag >= FREE_FORK)
+		fork_free(status->fork, status->cfg.num_philo);
+	if (flag == SUCCESS || flag == FREE_ALL)
+		philo_free(status->philo, status->cfg.num_philo);
 	free(status);
 }
 
@@ -23,6 +27,10 @@ int	status_set(t_status *status)
 {
 	if (share_init(&(status->share)))
 		return (FREE_SHARE);
+	if (fork_init(&(status->fork), status->cfg.num_philo))
+		return (FREE_SHARE);
+	if (philo_init(status))
+		return (FREE_FORK);
 	return (SUCCESS);
 }
 

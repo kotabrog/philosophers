@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:29:48 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:35:38 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 22:40:44 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	arg_parse(t_status *status, int argc, char **argv)
 		set_number(argv[2], &(status->cfg.time_die)) || \
 		set_number(argv[3], &(status->cfg.time_eat)) || \
 		set_number(argv[4], &(status->cfg.time_sleep)))
+		return (arg_error());
+	if (status->cfg.num_philo == 1)
 		return (arg_error());
 	if (argc == 6)
 	{

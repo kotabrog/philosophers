@@ -3,6 +3,8 @@ SRCNAME	=	main.c\
 			arg_parse.c\
 			status.c\
 			share.c\
+			fork.c\
+			philo.c\
 			ft_malloc.c\
 			mini_libft1.c\
 			debug.c

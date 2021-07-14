@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 20:36:40 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 22:50:14 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@
 # define ERROR -1
 
 # define EAT 0
-# define THINK 1
-# define SLEEP 2
+# define SLEEP 1
+# define THINK 2
 
 # define FREE_STATUS 1
 # define FREE_SHARE 2
+# define FREE_FORK 3
+# define FREE_ALL 4
 
 typedef struct s_fork {
 	int				use_flag;
@@ -66,8 +68,8 @@ typedef struct s_philo {
 typedef struct s_status {
 	t_config	cfg;
 	t_share		share;
-	t_philo		*philo;
 	t_fork		*fork;
+	t_philo		*philo;
 }			t_status;
 
 int		arg_parse(t_status *status, int argc, char **argv);
@@ -78,6 +80,12 @@ void	status_free(t_status *status, int flag);
 
 int		share_init(t_share *share);
 void	share_free(t_share *share);
+
+int		fork_init(t_fork **forks, int num);
+void	fork_free(t_fork *forks, int num);
+
+int		philo_init(t_status *status);
+void	philo_free(t_philo *philo, int num);
 
 int		ft_malloc(void *pointer, size_t type_size, size_t n);
 int		ft_free(void *pointer);
