@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 22:50:14 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 23:35:37 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_share {
 }			t_share;
 
 typedef struct s_philo {
+	int				own_num;
 	t_config		*cfg;
 	int				status;
 	struct timeval	start_eat;
@@ -63,6 +64,7 @@ typedef struct s_philo {
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	t_share			*share;
+	pthread_t		thread;
 }			t_philo;
 
 typedef struct s_status {
@@ -86,6 +88,7 @@ void	fork_free(t_fork *forks, int num);
 
 int		philo_init(t_status *status);
 void	philo_free(t_philo *philo, int num);
+void	philo_thread(t_philo *philo);
 
 int		ft_malloc(void *pointer, size_t type_size, size_t n);
 int		ft_free(void *pointer);

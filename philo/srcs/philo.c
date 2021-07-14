@@ -6,11 +6,16 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 22:48:54 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/14 23:47:54 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	philo_thread(t_philo *philo)
+{
+	printf("start thread %d\n", philo->own_num);
+}
 
 void	philo_free(t_philo *philo, int num)
 {
@@ -36,6 +41,7 @@ int	philo_init(t_status *status)
 	i = 0;
 	while (i < num)
 	{
+		status->philo[i].own_num = i + 1;
 		status->philo[i].cfg = &(status->cfg);
 		status->philo[i].status = THINK;
 		pthread_mutex_init(&(status->philo[i].status_mutex), NULL);
