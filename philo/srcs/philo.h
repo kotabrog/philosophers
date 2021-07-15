@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 23:35:37 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:28:03 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define EAT 0
 # define SLEEP 1
 # define THINK 2
+# define FORK 3
+# define DIE 4
 
 # define FREE_STATUS 1
 # define FREE_SHARE 2
@@ -75,6 +77,9 @@ typedef struct s_status {
 }			t_status;
 
 int		arg_parse(t_status *status, int argc, char **argv);
+
+int		print_status(int status, struct timeval *now_time, \
+			pthread_mutex_t *mutex, int philo_num);
 
 int		status_init(t_status **status);
 int		status_set(t_status *status);

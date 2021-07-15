@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 20:13:02 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 22:52:07 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:28:31 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	status_free(t_status *status, int flag)
 {
 	if (flag == SUCCESS || flag >= FREE_SHARE)
+	{
+		if (status->share.stop_flag == ERROR)
+			printf("unexpected error\n");
 		share_free(&(status->share));
+	}
 	if (flag == SUCCESS || flag >= FREE_FORK)
 		fork_free(status->fork, status->cfg.num_philo);
 	if (flag == SUCCESS || flag == FREE_ALL)

@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 23:47:54 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:29:20 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	philo_thread(t_philo *philo)
 {
-	printf("start thread %d\n", philo->own_num);
+	if (print_status(philo->status, NULL, \
+			&(philo->share->print_mutex), philo->own_num))
+		philo->share->stop_flag = ERROR;
 }
 
 void	philo_free(t_philo *philo, int num)
