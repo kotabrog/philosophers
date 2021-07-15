@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 18:25:04 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 19:16:22 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	join_thread(t_status *status, t_philo *philo, int num)
 	int	i;
 	int	flag;
 
-	if (FALSE)
-		printf("join %d philo\n", status->cfg.num_philo);
 	flag = SUCCESS;
+	usleep(5000);
+	share_change_stop(&(status->share), TRUE);
 	i = 0;
 	while (i < num)
 	{
@@ -85,8 +85,6 @@ int	main(int argc, char **argv)
 	flag = arg_parse(status, argc, argv);
 	if (!flag)
 		flag = status_set(status);
-	if (!flag)
-		debug_config(status);
 	if (!flag)
 		flag = start(status);
 	status_free(status, flag);

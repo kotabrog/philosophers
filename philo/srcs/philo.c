@@ -6,17 +6,26 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 18:29:20 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 19:13:28 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+
 void	philo_thread(t_philo *philo)
 {
-	if (print_status(philo->status, NULL, \
-			&(philo->share->print_mutex), philo->own_num))
-		philo->share->stop_flag = ERROR;
+	int	flag;
+
+	flag = share_check_stop(philo->share);
+	while (!flag)
+	{
+		if (print_status(philo->status, NULL, \
+				&(philo->share->print_mutex), philo->own_num))
+			share_change_stop(philo->share, ERROR);
+		usleep(1000);
+		flag = share_check_stop(philo->share);
+	}
 }
 
 void	philo_free(t_philo *philo, int num)

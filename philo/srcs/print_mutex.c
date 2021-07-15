@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 18:31:07 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 18:49:12 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_status(int status, struct timeval *now_time, \
 		time.tv_usec = now_time->tv_usec;
 	if (pthread_mutex_lock(mutex))
 		return (ERROR);
-	print_status_put(status, time.tv_usec, philo_num);
+	print_status_put(status, time.tv_usec / 1000, philo_num);
 	if (pthread_mutex_unlock(mutex))
 		return (ERROR);
 	return (SUCCESS);
