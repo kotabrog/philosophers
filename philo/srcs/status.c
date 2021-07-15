@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 20:13:02 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 18:28:31 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/15 21:40:22 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	status_free(t_status *status, int flag)
 	if (flag == SUCCESS || flag >= FREE_FORK)
 		fork_free(status->fork, status->cfg.num_philo);
 	if (flag == SUCCESS || flag == FREE_ALL)
-		philo_free(status->philo, status->cfg.num_philo);
+		free(status->philo);
 	free(status);
 }
 
