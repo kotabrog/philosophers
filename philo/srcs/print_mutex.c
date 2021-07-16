@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 22:12:16 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 22:54:57 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 static void	print_status_put(int status, suseconds_t time, int num)
 {
+	int	int_time;
+
+	int_time = (int)time;
 	if (status == EAT)
-		printf("%ld %d is eating\n", time, num);
+		printf("%d %d is eating\n", int_time, num);
 	else if (status == SLEEP)
-		printf("%ld %d is sleeping\n", time, num);
+		printf("%d %d is sleeping\n", int_time, num);
 	else if (status == THINK)
-		printf("%ld %d is thinking\n", time, num);
+		printf("%d %d is thinking\n", int_time, num);
 	else if (status == FORK)
-		printf("%ld %d has taken a fork\n", time, num);
+		printf("%d %d has taken a fork\n", int_time, num);
 	else if (status == DIE)
-		printf("%ld %d died\n", time, num);
+		printf("%d %d died\n", int_time, num);
 }
 
 int	print_status(int status1, int status2, t_philo *philo, t_share *share)
