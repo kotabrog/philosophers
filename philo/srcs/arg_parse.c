@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:29:48 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 22:40:44 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 14:56:24 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ static int	set_number(char *str, int *num)
 	return (SUCCESS);
 }
 
+static int	arg_value_check(t_config *cfg)
+{
+	if (cfg->num_philo <= 1 || \
+		cfg->time_die >= 1000 || \
+		cfg->time_eat >= 1000 || \
+		cfg->time_sleep >= 1000)
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int	arg_parse(t_status *status, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
@@ -57,7 +67,7 @@ int	arg_parse(t_status *status, int argc, char **argv)
 		set_number(argv[3], &(status->cfg.time_eat)) || \
 		set_number(argv[4], &(status->cfg.time_sleep)))
 		return (arg_error());
-	if (status->cfg.num_philo == 1)
+	if (arg_value_check(&(status->cfg)))
 		return (arg_error());
 	if (argc == 6)
 	{

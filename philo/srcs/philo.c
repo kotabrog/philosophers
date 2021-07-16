@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 21:39:50 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:45:34 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void	philo_thread(t_philo *philo)
 	flag = share_check_stop(philo->share);
 	while (!flag)
 	{
-		if (print_status(philo->status, NULL, \
-				&(philo->share->mutex), philo->own_num))
-			share_change_stop(philo->share, ERROR);
-		usleep(1000);
+		if (eat(philo))
+			break ;
+		usleep(N_TO_M * philo->cfg->time_sleep);
 		flag = share_check_stop(philo->share);
 	}
 }

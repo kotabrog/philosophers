@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 21:39:56 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:44:22 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define THINK 2
 # define FORK 3
 # define DIE 4
+
+# define N_TO_M 1000
 
 # define FREE_STATUS 1
 # define FREE_SHARE 2
@@ -75,21 +77,26 @@ typedef struct s_status {
 
 int		arg_parse(t_status *status, int argc, char **argv);
 
-int		print_status(int status, struct timeval *now_time, \
-			pthread_mutex_t *mutex, int philo_num);
+int		eat(t_philo *philo);
+
+int		print_status(int status1, int status2, t_philo *philo, t_share *share);
+
+void	time_update(t_philo *philo, struct timeval *time);
 
 int		share_check_stop(t_share *share);
 int		share_change_stop(t_share *share, int flag);
-
-int		status_init(t_status **status);
-int		status_set(t_status *status);
-void	status_free(t_status *status, int flag);
 
 int		share_init(t_share *share);
 void	share_free(t_share *share);
 
 int		fork_init(t_fork **forks, int num);
 void	fork_free(t_fork *forks, int num);
+int		fork_take(t_fork *one_fork, t_philo *philo, int eat_flag);
+int		fork_release(t_fork *one_fork);
+
+int		status_init(t_status **status);
+int		status_set(t_status *status);
+void	status_free(t_status *status, int flag);
 
 int		philo_init(t_status *status);
 void	philo_thread(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 18:49:12 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:44:33 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,26 @@ static void	print_status_put(int status, suseconds_t time, int num)
 		printf("%ld %d died\n", time, num);
 }
 
-int	print_status(int status, struct timeval *now_time, \
-	pthread_mutex_t *mutex, int philo_num)
+int	print_status(int status1, int status2, t_philo *philo, t_share *share)
 {
 	struct timeval	time;
+	int				flag;
 
-	if (now_time == NULL)
+	flag = SUCCESS;
+	if (pthread_mutex_lock(&(share->mutex)))
+		return (ERROR);
+	if (gettimeofday(&time, NULL))
+		flag = ERROR;
+	if (!flag && !share->stop_flag)
 	{
-		if (gettimeofday(&time, NULL))
-			return (ERROR);
+		print_status_put(status1, time.tv_usec / N_TO_M, philo->own_num);
+		if (status2 != -1)
+		{
+			time_update(philo, &time);
+			print_status_put(status2, time.tv_usec / N_TO_M, philo->own_num);
+		}
 	}
-	else
-		time.tv_usec = now_time->tv_usec;
-	if (pthread_mutex_lock(mutex))
+	if (pthread_mutex_unlock(&(share->mutex)))
 		return (ERROR);
-	print_status_put(status, time.tv_usec / 1000, philo_num);
-	if (pthread_mutex_unlock(mutex))
-		return (ERROR);
-	return (SUCCESS);
+	return (flag);
 }

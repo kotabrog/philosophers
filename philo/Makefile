@@ -1,8 +1,10 @@
 SRCDIR	= ./srcs/
 SRCNAME	=	main.c\
 			arg_parse.c\
+			eat.c\
 			print_mutex.c\
 			share_mutex.c\
+			time.c\
 			status.c\
 			share.c\
 			fork.c\

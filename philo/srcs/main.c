@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/15 21:47:55 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:44:53 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	join_thread(t_status *status, t_philo *philo, int num)
 	int	flag;
 
 	flag = SUCCESS;
-	usleep(5000);
+	usleep(N_TO_M * 20);
 	share_change_stop(&(status->share), TRUE);
 	i = 0;
 	while (i < num)

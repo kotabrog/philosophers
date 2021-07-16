@@ -6,11 +6,43 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 20:56:18 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/14 21:03:22 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 15:24:10 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	fork_release(t_fork *one_fork)
+{
+	if (pthread_mutex_lock(&(one_fork->mutex)))
+		return (ERROR);
+	one_fork->use_flag = FALSE;
+	if (pthread_mutex_unlock(&(one_fork->mutex)))
+		return (ERROR);
+	return (SUCCESS);
+}
+
+int	fork_take(t_fork *one_fork, t_philo *philo, int eat_flag)
+{
+	int	flag;
+
+	flag = FALSE;
+	if (pthread_mutex_lock(&(one_fork->mutex)))
+		return (ERROR);
+	if (!one_fork->use_flag)
+	{
+		one_fork->use_flag = TRUE;
+		if (eat_flag)
+			flag = print_status(FORK, EAT, philo, philo->share);
+		else
+			flag = print_status(FORK, -1, philo, philo->share);
+		if (flag == SUCCESS)
+			flag = TRUE;
+	}
+	if (pthread_mutex_unlock(&(one_fork->mutex)))
+		return (ERROR);
+	return (flag);
+}
 
 void	fork_free(t_fork *forks, int num)
 {
