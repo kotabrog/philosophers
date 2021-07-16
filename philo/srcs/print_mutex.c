@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 17:37:11 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 22:12:16 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ int	print_status(int status1, int status2, t_philo *philo, t_share *share)
 		flag = ERROR;
 	if (!flag && !share->stop_flag)
 	{
-		if (status1 == DIE)
-			share->stop_flag = TRUE;
 		print_status_put(status1, time.tv_usec / N_TO_M, philo->own_num);
 		if (status2 != -1)
 		{
 			time_update(philo, &time);
 			print_status_put(status2, time.tv_usec / N_TO_M, philo->own_num);
+			eat_count(philo, share);
 		}
 	}
 	if (pthread_mutex_unlock(&(share->mutex)))

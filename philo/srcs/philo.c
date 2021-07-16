@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 16:57:40 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 20:31:20 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	philo_init(t_status *status)
 		status->philo[i].own_num = i + 1;
 		status->philo[i].cfg = &(status->cfg);
 		status->philo[i].status = THINK;
+		status->philo[i].eat_count = 0;
 		status->philo[i].share = &(status->share);
 		status->philo[i].left_fork = &(status->fork[i]);
 		status->philo[i].right_fork = &(status->fork[(i + 1) % num]);

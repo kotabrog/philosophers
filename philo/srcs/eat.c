@@ -6,11 +6,24 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 11:17:45 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 16:01:03 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 22:26:05 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	eat_count(t_philo *philo, t_share *share)
+{
+	if (philo->eat_count < philo->cfg->stop_eat_times)
+		philo->eat_count += 1;
+	if (philo->eat_count == philo->cfg->stop_eat_times)
+	{
+		philo->eat_count += 1;
+		share->stop_eat_count += 1;
+		if (share->stop_eat_count == philo->cfg->num_philo)
+			share->stop_flag = TRUE;
+	}
+}
 
 static int	eat_end(t_philo *philo, t_share *share)
 {
@@ -37,7 +50,7 @@ static int	eat_preparation(t_philo *philo, int is_left, t_share *share)
 	flag = FALSE;
 	while (!flag)
 	{
-		flag = share_check_stop(philo->share);
+		flag = share_check_stop(share);
 		if (flag)
 			break ;
 		if (is_left)

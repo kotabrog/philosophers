@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 17:46:22 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 22:12:41 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philo {
 	t_config		*cfg;
 	int				status;
 	struct timeval	start_eat;
+	int				eat_count;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	t_share			*share;
@@ -79,12 +80,12 @@ typedef struct s_status {
 int		arg_parse(t_status *status, int argc, char **argv);
 
 int		eat(t_philo *philo);
+void	eat_count(t_philo *philo, t_share *share);
 
 int		print_status(int status1, int status2, t_philo *philo, t_share *share);
 
 void	time_update(t_philo *philo, struct timeval *time);
 int		set_start_time(t_philo *philo, int num);
-int		time_passed_check(struct timeval *start_eat, int elapsed);
 
 void	check_die_thread(t_status *status);
 int		share_check_stop(t_share *share);

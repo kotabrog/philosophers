@@ -6,25 +6,11 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 11:34:57 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 17:25:50 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 22:12:38 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	time_passed_check(struct timeval *start_eat, int elapsed)
-{
-	struct timeval	time;
-	int				value;
-
-	if (gettimeofday(&time, NULL))
-		return (ERROR);
-	value = time.tv_usec - start_eat->tv_usec;
-	if (value < 0)
-		value += 1000000;
-	value /= N_TO_M;
-	return (value >= elapsed);
-}
 
 void	time_update(t_philo *philo, struct timeval *time)
 {
