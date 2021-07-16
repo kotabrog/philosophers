@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 15:44:22 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:46:22 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_status {
 	t_share		share;
 	t_fork		*fork;
 	t_philo		*philo;
+	pthread_t	thread;
 }			t_status;
 
 int		arg_parse(t_status *status, int argc, char **argv);
@@ -82,7 +83,10 @@ int		eat(t_philo *philo);
 int		print_status(int status1, int status2, t_philo *philo, t_share *share);
 
 void	time_update(t_philo *philo, struct timeval *time);
+int		set_start_time(t_philo *philo, int num);
+int		time_passed_check(struct timeval *start_eat, int elapsed);
 
+void	check_die_thread(t_status *status);
 int		share_check_stop(t_share *share);
 int		share_change_stop(t_share *share, int flag);
 

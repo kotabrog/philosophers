@@ -6,27 +6,11 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 15:44:53 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/16 18:34:44 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	set_start_time(t_philo *philo, int num)
-{
-	int	i;
-
-	if (gettimeofday(&(philo[0].start_eat), NULL))
-		return (ERROR);
-	i = 1;
-	while (i < num)
-	{
-		philo[i].start_eat.tv_sec = philo[0].start_eat.tv_sec;
-		philo[i].start_eat.tv_usec = philo[0].start_eat.tv_usec;
-		++i;
-	}
-	return (SUCCESS);
-}
 
 static int	start_thread(t_status *status, t_philo *philo, int num)
 {
@@ -42,6 +26,9 @@ static int	start_thread(t_status *status, t_philo *philo, int num)
 			return (ERROR);
 		++i;
 	}
+	if (pthread_create(&(status->thread), NULL, \
+			(void *)check_die_thread, status))
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -60,6 +47,8 @@ static int	join_thread(t_status *status, t_philo *philo, int num)
 			flag = ERROR;
 		++i;
 	}
+	if (pthread_join(status->thread, NULL))
+		flag = ERROR;
 	return (flag);
 }
 
@@ -70,6 +59,8 @@ static int	start(t_status *status)
 	if (set_start_time(status->philo, status->cfg.num_philo))
 		return (FREE_ALL);
 	flag = start_thread(status, status->philo, status->cfg.num_philo);
+	if (flag)
+		share_change_stop(&(status->share), ERROR);
 	if (join_thread(status, status->philo, status->cfg.num_philo) || flag)
 		return (FREE_ALL);
 	return (SUCCESS);
