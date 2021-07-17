@@ -6,65 +6,54 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 19:08:18 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:10:13 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 13:09:10 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_time_and_die(t_philo *philo, t_status *status)
+int	check_philo_die(t_philo *philo, struct timeval *time)
 {
 	int				flag;
-	struct timeval	time;
 	int				value;
 
-	if (gettimeofday(&time, NULL))
-		flag = ERROR;
-	else
-	{
-		value = time.tv_usec - philo->start_eat.tv_usec;
-		if (value < 0)
-			value += 1000000;
-		flag = ((value / N_TO_M) >= status->cfg.time_die);
-	}
+	value = time->tv_usec - philo->start_eat.tv_usec;
+	if (value < 0)
+		value += 1000000;
+	flag = ((value / N_TO_M) >= philo->cfg->time_die);
 	if (flag == TRUE)
 	{
-		status->share.stop_flag = TRUE;
-		print_status_put(DIE, time.tv_usec, philo->own_num);
+		philo->share->stop_flag = TRUE;
+		print_status_put(DIE, time->tv_usec, philo->own_num);
 	}
 	else if (flag == ERROR)
-		status->share.stop_flag = ERROR;
-	return (flag);
-}
-
-static int	check_one_philo(t_philo *philo, t_status *status)
-{
-	int				flag;
-
-	if (pthread_mutex_lock(&(status->share.mutex)))
-		return (ERROR);
-	if (status->share.stop_flag)
-		flag = TRUE;
-	else
-		flag = check_time_and_die(philo, status);
-	if (pthread_mutex_unlock(&(status->share.mutex)))
-		return (ERROR);
+		philo->share->stop_flag = ERROR;
 	return (flag);
 }
 
 void	check_die_thread(t_status *status)
 {
-	int		i;
-	int		flag;
+	int				i;
+	int				flag;
+	struct timeval	time;
 
 	flag = FALSE;
-	i = 0;
 	while (!flag)
 	{
-		flag = check_one_philo(&(status->philo[i]), status);
-		if (!flag)
-			flag = share_check_stop(&(status->share));
-		i = (i + 1) % status->cfg.num_philo;
+		i = 0;
+		if (pthread_mutex_lock(&(status->share.mutex)))
+			return ;
+		if (status->share.stop_flag)
+			flag = TRUE;
+		if (!flag && gettimeofday(&time, NULL))
+			flag = ERROR;
+		while (!flag && i < status->cfg.num_philo)
+		{
+			flag = check_philo_die(&(status->philo[i]), &time);
+			++i;
+		}
+		if (pthread_mutex_unlock(&(status->share.mutex)))
+			return ;
 	}
 }
 

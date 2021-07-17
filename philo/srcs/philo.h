@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:07:33 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 13:05:35 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		set_start_time(t_philo *philo, int num);
 void	check_die_thread(t_status *status);
 int		share_check_stop(t_share *share);
 int		share_change_stop(t_share *share, int flag);
+int		check_philo_die(t_philo *philo, struct timeval *time);
 
 int		share_init(t_share *share);
 void	share_free(t_share *share);
