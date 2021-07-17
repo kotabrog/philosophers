@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 13:08:47 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 16:43:07 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ void	print_status_put(int status, suseconds_t time, int num)
 	int	int_time;
 
 	int_time = (int)(time / N_TO_M);
+	ft_putnbr_fd(int_time, 1);
+	write(1, " ", 1);
+	ft_putnbr_fd(num, 1);
 	if (status == EAT)
-		printf("%d %d is eating\n", int_time, num);
+		ft_putendl_fd(" is eating", 1);
 	else if (status == SLEEP)
-		printf("%d %d is sleeping\n", int_time, num);
+		ft_putendl_fd(" is sleeping", 1);
 	else if (status == THINK)
-		printf("%d %d is thinking\n", int_time, num);
+		ft_putendl_fd(" is thinking", 1);
 	else if (status == FORK)
-		printf("%d %d has taken a fork\n", int_time, num);
+		ft_putendl_fd(" has taken a fork", 1);
 	else if (status == DIE)
-		printf("%d %d died\n", int_time, num);
+		ft_putendl_fd(" died", 1);
 }
 
 int	print_status(int status1, int status2, t_philo *philo, t_share *share)

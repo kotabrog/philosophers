@@ -11,6 +11,7 @@ SRCNAME	=	main.c\
 			philo.c\
 			ft_malloc.c\
 			mini_libft1.c\
+			mini_libft2.c
 
 SRCS	= $(addprefix $(SRCDIR), $(SRCNAME))
 OBJS	= $(SRCS:.c=.o)

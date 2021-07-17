@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_libft1.c                                      :+:      :+:    :+:   */
+/*   mini_libft2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/14 19:33:48 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 16:38:24 by ksuzuki          ###   ########.fr       */
+/*   Created: 2021/07/17 16:38:13 by ksuzuki           #+#    #+#             */
+/*   Updated: 2021/07/17 16:40:44 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlen(const char *c)
+void	ft_putchar_fd(char c, int fd)
 {
-	size_t	i;
-
-	i = 0;
-	while (c[i])
-		i++;
-	return (i);
+	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+static void	ft_put_num(int n, int fd)
 {
-	size_t	n;
-
-	n = ft_strlen(s);
-	write(fd, s, n);
+	if (n == 0)
+		return ;
+	ft_put_num(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
 }
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	ft_putstr_fd(s, fd);
-	write(fd, "\n", 1);
-}
-
-int	ft_isdigit(int c)
-{
-	return ('0' <= c && c <= '9');
+	if (n == -2147483648)
+	{
+		ft_putstr_fd("-2", fd);
+		n = 147483648;
+	}
+	if (n < 0)
+	{
+		n *= -1;
+		ft_putchar_fd('-', fd);
+	}
+	if (n == 0)
+	{
+		ft_putchar_fd('0', fd);
+		return ;
+	}
+	ft_put_num(n, fd);
+	return ;
 }
