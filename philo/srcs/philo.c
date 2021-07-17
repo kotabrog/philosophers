@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 20:31:20 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 10:04:33 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	philo_thread(t_philo *philo)
 		usleep(N_TO_M * philo->cfg->time_sleep);
 		if (print_status(THINK, -1, philo, philo->share))
 			break ;
-		philo->status = THINK;
 		flag = share_check_stop(philo->share);
 	}
 }
@@ -42,7 +41,6 @@ int	philo_init(t_status *status)
 	{
 		status->philo[i].own_num = i + 1;
 		status->philo[i].cfg = &(status->cfg);
-		status->philo[i].status = THINK;
 		status->philo[i].eat_count = 0;
 		status->philo[i].share = &(status->share);
 		status->philo[i].left_fork = &(status->fork[i]);

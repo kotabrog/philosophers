@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 11:17:45 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 22:26:05 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 10:03:34 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	eat_end(t_philo *philo, t_share *share)
 		share_change_stop(share, ERROR);
 		return (ERROR);
 	}
-	philo->status = SLEEP;
 	return (SUCCESS);
 }
 

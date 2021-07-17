@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 22:12:41 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 10:03:25 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_share {
 typedef struct s_philo {
 	int				own_num;
 	t_config		*cfg;
-	int				status;
 	struct timeval	start_eat;
 	int				eat_count;
 	t_fork			*left_fork;
