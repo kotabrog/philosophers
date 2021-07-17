@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 13:05:35 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 13:23:32 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define FREE_SHARE 2
 # define FREE_FORK 3
 # define FREE_ALL 4
+
+# define MAX_PHILO 100
 
 typedef struct s_fork {
 	int				use_flag;
@@ -114,7 +116,5 @@ size_t	ft_strlen(const char *c);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_isdigit(int c);
-
-void	debug_config(t_status *status);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:29:48 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:17:58 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 14:17:09 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static int	set_number(char *str, int *num)
 
 static int	arg_value_check(t_config *cfg)
 {
-	if (cfg->num_philo <= 1 || \
-		cfg->num_philo >= 1000 || \
+	if (cfg->num_philo > MAX_PHILO || \
 		cfg->time_die >= 1000 || \
 		cfg->time_eat >= 1000 || \
 		cfg->time_sleep >= 1000)

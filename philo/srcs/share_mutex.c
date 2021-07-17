@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 19:08:18 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 13:09:10 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 13:47:34 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	check_die_thread(t_status *status)
 	while (!flag)
 	{
 		i = 0;
+		usleep(N_TO_M);
 		if (pthread_mutex_lock(&(status->share.mutex)))
 			return ;
 		if (status->share.stop_flag)
