@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 10:03:25 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 11:07:33 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		eat(t_philo *philo);
 void	eat_count(t_philo *philo, t_share *share);
 
 int		print_status(int status1, int status2, t_philo *philo, t_share *share);
+void	print_status_put(int status, suseconds_t time, int num);
 
 void	time_update(t_philo *philo, struct timeval *time);
 int		set_start_time(t_philo *philo, int num);

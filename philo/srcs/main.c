@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 22:59:28 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 11:15:10 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static int	start_thread(t_status *status, t_philo *philo, int num)
 	int	i;
 
 	i = 0;
+	if (pthread_create(&(status->thread), NULL, \
+			(void *)check_die_thread, status))
+		return (ERROR);
 	while (i < num)
 	{
 		if (pthread_create(&(philo[i].thread), NULL, \
@@ -24,9 +27,6 @@ static int	start_thread(t_status *status, t_philo *philo, int num)
 			return (ERROR);
 		++i;
 	}
-	if (pthread_create(&(status->thread), NULL, \
-			(void *)check_die_thread, status))
-		return (ERROR);
 	return (SUCCESS);
 }
 

@@ -6,22 +6,18 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 19:08:18 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 23:02:24 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 11:10:13 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_one_philo(t_philo *philo, t_status *status)
+static int	check_time_and_die(t_philo *philo, t_status *status)
 {
 	int				flag;
 	struct timeval	time;
 	int				value;
 
-	if (pthread_mutex_lock(&(status->share.mutex)))
-		return (ERROR);
-	if (status->share.stop_flag)
-		return (TRUE);
 	if (gettimeofday(&time, NULL))
 		flag = ERROR;
 	else
@@ -33,12 +29,24 @@ static int	check_one_philo(t_philo *philo, t_status *status)
 	}
 	if (flag == TRUE)
 	{
-		value = (int)(time.tv_usec / N_TO_M);
 		status->share.stop_flag = TRUE;
-		printf("%d %d died\n", value, philo->own_num);
+		print_status_put(DIE, time.tv_usec, philo->own_num);
 	}
 	else if (flag == ERROR)
 		status->share.stop_flag = ERROR;
+	return (flag);
+}
+
+static int	check_one_philo(t_philo *philo, t_status *status)
+{
+	int				flag;
+
+	if (pthread_mutex_lock(&(status->share.mutex)))
+		return (ERROR);
+	if (status->share.stop_flag)
+		flag = TRUE;
+	else
+		flag = check_time_and_die(philo, status);
 	if (pthread_mutex_unlock(&(status->share.mutex)))
 		return (ERROR);
 	return (flag);

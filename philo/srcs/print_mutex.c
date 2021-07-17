@@ -6,17 +6,17 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 17:54:12 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/16 22:54:57 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 11:11:11 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_status_put(int status, suseconds_t time, int num)
+void	print_status_put(int status, suseconds_t time, int num)
 {
 	int	int_time;
 
-	int_time = (int)time;
+	int_time = (int)(time / N_TO_M);
 	if (status == EAT)
 		printf("%d %d is eating\n", int_time, num);
 	else if (status == SLEEP)
@@ -41,11 +41,11 @@ int	print_status(int status1, int status2, t_philo *philo, t_share *share)
 		flag = ERROR;
 	if (!flag && !share->stop_flag)
 	{
-		print_status_put(status1, time.tv_usec / N_TO_M, philo->own_num);
+		print_status_put(status1, time.tv_usec, philo->own_num);
 		if (status2 != -1)
 		{
 			time_update(philo, &time);
-			print_status_put(status2, time.tv_usec / N_TO_M, philo->own_num);
+			print_status_put(status2, time.tv_usec, philo->own_num);
 			eat_count(philo, share);
 		}
 	}
