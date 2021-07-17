@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 19:08:18 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 15:31:38 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 20:09:53 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 int	check_philo_die(t_philo *philo, struct timeval *time)
 {
 	int				flag;
-	int				value;
 
-	value = time->tv_usec - philo->start_eat.tv_usec;
-	if (value < 0)
-		value += 1000000;
-	flag = ((value / N_TO_M) >= philo->cfg->time_die);
+	flag = check_elapsed_time(philo->start_eat.tv_usec, time->tv_usec, \
+		philo->cfg->time_die);
 	if (flag == TRUE)
 	{
 		philo->share->stop_flag = TRUE;

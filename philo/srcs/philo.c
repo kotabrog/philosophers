@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 21:13:09 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:10:48 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 20:05:37 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	philo_thread(t_philo *philo)
 	{
 		if (eat(philo))
 			break ;
-		usleep(N_TO_M * philo->cfg->time_sleep);
+		accurate_usleep(philo->cfg->time_sleep, philo->before_time);
 		if (print_status(THINK, -1, philo, philo->share))
 			break ;
 		flag = share_check_stop(philo->share);

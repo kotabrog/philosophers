@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 11:17:45 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 15:35:01 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 20:06:19 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	eat(t_philo *philo)
 		return (ERROR);
 	if (eat_preparation(philo, FALSE, philo->share))
 		return (ERROR);
-	usleep(N_TO_M * philo->cfg->time_eat);
+	accurate_usleep(philo->cfg->time_eat, philo->before_time);
 	if (eat_end(philo, philo->share))
 		return (ERROR);
 	return (SUCCESS);
