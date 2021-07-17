@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 11:17:45 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:10:29 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/17 15:35:01 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int	eat_preparation(t_philo *philo, int is_left, t_share *share)
 			flag = fork_take(philo->left_fork, philo, FALSE);
 		else
 			flag = fork_take(philo->right_fork, philo, TRUE);
+		if (!flag)
+			usleep(N_TO_M / 2);
 	}
 	if (flag == ERROR)
 	{
