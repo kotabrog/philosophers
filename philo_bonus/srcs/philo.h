@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/18 10:34:10 by ksuzuki          ###   ########.fr       */
+/*   Created: 2021/07/18 10:18:09 by ksuzuki           #+#    #+#             */
+/*   Updated: 2021/07/18 10:58:55 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <pthread.h>
+# include <semaphore.h>
 # include <sys/time.h>
 # include <limits.h>
 
@@ -35,15 +37,12 @@
 
 # define FREE_STATUS 1
 # define FREE_SHARE 2
-# define FREE_FORK 3
-# define FREE_ALL 4
+# define FREE_ALL 3
 
 # define MAX_PHILO 100
 
-typedef struct s_fork {
-	int				use_flag;
-	pthread_mutex_t	mutex;
-}			t_fork;
+# define SEM_NAME_FORK ("/semaphore_forks")
+# define SEM_NAME_DATA ("/semaphore_data")
 
 typedef struct s_config {
 	int		num_philo;
@@ -54,9 +53,10 @@ typedef struct s_config {
 }			t_config;
 
 typedef struct s_share {
-	int				stop_flag;
-	int				stop_eat_count;
-	pthread_mutex_t	mutex;
+	int		stop_flag;
+	int		stop_eat_count;
+	sem_t	*sem;
+	sem_t	*fork_sem;
 }			t_share;
 
 typedef struct s_philo {
@@ -65,8 +65,6 @@ typedef struct s_philo {
 	struct timeval	start_eat;
 	int				eat_count;
 	int				before_time;
-	t_fork			*left_fork;
-	t_fork			*right_fork;
 	t_share			*share;
 	pthread_t		thread;
 }			t_philo;
@@ -74,52 +72,27 @@ typedef struct s_philo {
 typedef struct s_status {
 	t_config	cfg;
 	t_share		share;
-	t_fork		*fork;
 	t_philo		*philo;
 	pthread_t	thread;
 }			t_status;
 
 int		arg_parse(t_status *status, int argc, char **argv);
 
-int		eat(t_philo *philo);
-void	eat_count(t_philo *philo, t_share *share);
-
-int		print_status(int status1, int status2, t_philo *philo, t_share *share);
-void	print_status_put(int status, suseconds_t time, int num);
-
-void	time_update(t_philo *philo, struct timeval *time, int is_eat);
-int		set_start_time(t_philo *philo, int num);
-int		check_elapsed_time(int start_time, int end_time, int limit_time);
-int		accurate_usleep(int limit_time, int start_time);
-
-void	check_die_thread(t_status *status);
-int		share_check_stop(t_share *share);
-int		share_change_stop(t_share *share, int flag);
-int		check_philo_die(t_philo *philo, struct timeval *time);
-
-int		share_init(t_share *share);
-void	share_free(t_share *share);
-
-int		fork_init(t_fork **forks, int num);
-void	fork_free(t_fork *forks, int num);
-int		fork_take(t_fork *one_fork, t_philo *philo, int eat_flag);
-int		fork_release(t_fork *one_fork);
-
 int		status_init(t_status **status);
 int		status_set(t_status *status);
 void	status_free(t_status *status, int flag);
 
+int		share_init(t_share *share, int fork_num);
+void	share_free(t_share *share);
+
 int		philo_init(t_status *status);
-void	philo_thread(t_philo *philo);
 
 int		ft_malloc(void *pointer, size_t type_size, size_t n);
 int		ft_free(void *pointer);
 
 size_t	ft_strlen(const char *c);
-void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
 int		ft_isdigit(int c);
 
 #endif

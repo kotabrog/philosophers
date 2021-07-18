@@ -72,7 +72,7 @@
 ## todo
 - timestamp_in_msの取得
   - [x] gettimeofdayで取得した構造体のtv_usecがこれになる
-  - 実装
-- usleepの実行時間を短めに設定する（ワカモレ対策）
-- debug関数を削除する
-- windowsでは-pthread指定だったかがワカモレでもそうか調べる
+  - [x] 実装
+- [x] usleepの実行時間を短めに設定する（ワカモレ対策）
+- [x] debug関数を削除する
+- [x] windowsでは-pthread指定だったかがワカモレでもそうか調べる
