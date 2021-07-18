@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:00 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/17 11:15:10 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/18 15:07:16 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,27 @@
 static int	start_thread(t_status *status, t_philo *philo, int num)
 {
 	int	i;
+	int	flag;
 
 	i = 0;
-	if (pthread_create(&(status->thread), NULL, \
-			(void *)check_die_thread, status))
+	flag = SUCCESS;
+	if (pthread_mutex_lock(&(status->share.start)))
 		return (ERROR);
-	while (i < num)
+	while (!flag && i < num)
 	{
 		if (pthread_create(&(philo[i].thread), NULL, \
 				(void *)philo_thread, &(philo[i])))
-			return (ERROR);
+			flag = ERROR;
 		++i;
 	}
-	return (SUCCESS);
+	if (!flag && set_start_time(status->philo, status->cfg.num_philo))
+		flag = ERROR;
+	if (!flag && pthread_create(&(status->thread), NULL, \
+		(void *)check_die_thread, status))
+		return (ERROR);
+	if (pthread_mutex_unlock(&(status->share.start)))
+		return (ERROR);
+	return (flag);
 }
 
 static int	join_thread(t_status *status, t_philo *philo, int num)
@@ -52,8 +60,6 @@ static int	start(t_status *status)
 {
 	int	flag;
 
-	if (set_start_time(status->philo, status->cfg.num_philo))
-		return (FREE_ALL);
 	flag = start_thread(status, status->philo, status->cfg.num_philo);
 	if (flag)
 		share_change_stop(&(status->share), ERROR);

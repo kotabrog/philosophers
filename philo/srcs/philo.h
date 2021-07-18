@@ -6,7 +6,7 @@
 /*   By: ksuzuki <ksuzuki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:55:28 by ksuzuki           #+#    #+#             */
-/*   Updated: 2021/07/18 10:34:10 by ksuzuki          ###   ########.fr       */
+/*   Updated: 2021/07/18 15:02:52 by ksuzuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_share {
 	int				stop_flag;
 	int				stop_eat_count;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	start;
 }			t_share;
 
 typedef struct s_philo {
